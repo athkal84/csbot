@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: rasa-chatbot
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: rasa run --enable-api --cors "*" --port 10000
+    runtime: python-3.10.13
+  
