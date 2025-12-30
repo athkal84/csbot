@@ -1,0 +1,34 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Όλες οι ερωτήσεις πάνε στο RAG
+  steps:
+  - intent: ask_question
+  - action: action_rag_answer
+
+- rule: Όταν ο μαθητής δεν καταλαβαίνει την απάντηση του bot
+  steps:
+  - intent: not_understood_by_student
+  - action: action_rag_answer_simple
+
+- rule: ask exercise
+  steps:
+    - intent: request_exercises
+    - action: action_get_exercise
+
+- rule: συνεχόμενες ασκήσεις
+  condition:
+    - slot_was_set:
+        - exercise_solution
+  steps:
+    - intent: answer_exercise
+    - action: action_check_exercise_answer
+    - action: action_get_exercise
+
+

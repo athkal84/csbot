@@ -1,0 +1,106 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - ask_question
+  - not_understood_by_student
+  - request_exercises
+  - answer_exercise
+
+slots:
+  previous_answer:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  exercise_text:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  exercise_solution:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+  
+  exercise_topic:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: custom
+
+  exercise_index:
+      type: float
+      initial_value: 0
+      influence_conversation: false
+      mappings: []
+
+  exercise_difficulty:
+    type: categorical
+    values:
+      - easy
+      - medium
+      - hard
+    initial_value: easy
+    influence_conversation: true
+    mappings:
+      - type: custom
+
+  quiz_id:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+  
+  questions_count:
+    type: float
+    initial_value: 0
+    influence_conversation: false
+    mappings: []
+
+  quiz_finished:
+    type: bool
+    initial_value: false
+    influence_conversation: true
+    mappings: []
+
+  exercise_explanation:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  score:
+    type: float
+    initial_value: 0
+    influence_conversation: false
+    mappings: []
+
+responses:
+  utter_greet:
+  - text: "Γειά σου! Πως μπορώ να σε βοηθήσω;"
+
+  utter_ask_question:
+  - text: "Πες μου την ερώτησή σου και θα προσπαθήσω να σου απαντήσω."
+
+  utter_goodbye:
+  - text: "Αντίο! Να έχεις μια όμορφη μέρα."
+
+  utter_fallback:
+    - text: "Δεν είμαι σίγουρη ότι κατάλαβα. Μπορείς να το πεις αλλιώς;"
+
+actions:
+  - action_rag_answer
+  - action_rag_answer_simple
+  - action_get_exercise 
+  - action_check_exercise_answer
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

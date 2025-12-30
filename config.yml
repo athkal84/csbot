@@ -1,0 +1,21 @@
+language: el
+
+pipeline:
+- name: WhitespaceTokenizer
+- name: CountVectorsFeaturizer
+- name: CountVectorsFeaturizer
+  analyzer: char_wb
+  min_ngram: 1
+  max_ngram: 4
+- name: DIETClassifier
+  epochs: 150
+- name: EntitySynonymMapper
+  epochs: 100
+
+policies:
+- name: RulePolicy
+- name: MemoizationPolicy
+- name: TEDPolicy
+  max_history: 5
+  epochs: 100
+assistant_id: 20251128-074511-mean-razorbill
